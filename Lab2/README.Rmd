@@ -82,10 +82,7 @@ ipak <- function(pkg){
 #run function to install packages
 ipak(packages)
 
-install.packages("tmap")
-install.packages("Rtools")
-library(tmap)
-### not working????
+#library(tmap)
 ```
 
 # Objective 1: Managing Spatial Raster and Shapefile data
@@ -120,6 +117,7 @@ As a preliminary step, lets plot some of the wolfyht using the base plot functio
 ```{r message=FALSE}
 class(wolfyht)
 crs(wolfyht,proj = TRUE) # note this is a UTM projected map system. 
+#crs(wolfyht)
 str(wolfyht)
 # Note that there are two fields, Easting and Northing which are the X and Y coordinates in UTM zone 11.  We will use these to map it for each PackID
 # base plot of wolf packs by color with legend
@@ -145,8 +143,8 @@ tm_shape(elc_habitat) + tm_sf("MOOSE_W", border.alpha = 0)
 #construct ggplot2 plot for Moose Winter Habitat
 ##geom_sf allows you to interface with sf
 # Note - color = NA in the geom_sf() removes the border lines
-moose_plot<-ggplot() + 
-  geom_sf(data = elc_habitat, mapping = aes(fill = as.factor(MOOSE_W)), color = NA) + labs(x="Easting",y="Northing") + theme(axis.text.y = element_text(angle = 90, hjust=0.5))
+moose_plot<-ggplot() + geom_sf(data = elc_habitat, mapping = aes(fill = as.factor(MOOSE_W)), color = NA) + labs(x="Easting",y="Northing") + theme(axis.text.y = element_text(angle = 90, hjust=0.5))
+moose_plot
 
 #adjust fill colors of MOOSE_W  (note that I just selected some random colors, but made "7" as blue)
 moose_plot2 <- moose_plot + scale_fill_manual(name="MOOSE_W",values=c("gray","gray", "red", "orange", "yellow", "green","darkblue"))
@@ -159,7 +157,7 @@ Bighorn Sheep Winter Habitat Model
 sheep_plot<-ggplot() + 
   geom_sf(data = elc_habitat, mapping = aes(fill = as.factor(SHEEP_W)), color = NA) + labs(x="Easting",y="Northing") + theme(axis.text.y = element_text(angle = 90, hjust=0.5))
 
-#adjust fill colors of MOOSE_W  (note that I just selected some random colors, but made "7" as blue)
+#adjust fill colors of SHEEP_W  (note that I just selected some random colors, but made "7" as blue)
 sheep_plot2 <- sheep_plot + scale_fill_manual(name="SHEEP_W",values=c("gray","gray", "red", "orange", "yellow", "green","darkblue"))
 sheep_plot2
 ```
@@ -415,7 +413,7 @@ as.data.frame(cp.rd)
 ## How many gps points do you need in order to estimate home range size effectively? 
 mcp.area(rd, percent=seq(50, 100, by=5))
 
-Rarefaction curves -coming up later
+#Rarefaction curves -coming up later
 ```
 
 
