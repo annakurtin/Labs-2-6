@@ -81,8 +81,24 @@ ipak <- function(pkg){
 
 #run function to install packages
 ipak(packages)
+```
 
-#library(tmap)
+
+```{r Install and Read Packages Function}
+## First specify the packages of interest
+packages = c("ks", "here", "plotrix", "lattice", "adehabitatHR", "maptools", "mapview", "ggplot2","colorRamps", "sf", "terra", "tmap", "stars", "dplyr")
+
+## Now check each packages, if it needs to be installed, install it, then load it
+package.check <- lapply(
+  packages,
+  FUN = function(x) {
+    if (!require(x, character.only = TRUE)) {
+      install.packages(x, dependencies = TRUE)
+      library(x, character.only = TRUE)
+    }
+  }
+)
+
 ```
 
 # Objective 1: Managing Spatial Raster and Shapefile data
@@ -486,15 +502,15 @@ plot(cp.bow[cp.bow@data$id=="44",], col="green",add=TRUE)
 plot(bv, col="black", add=TRUE)
 ```
 
-## Red Deer wolves
+## Bow valley wolves
 ```{r, warning= FALSE}
-#check area for each Red Deer wolf pack
+#check area for each bow valley wolf pack
 as.data.frame(cp.bow)
 
 #calculate area for different percents of MPC
 mcp.area(bv, percent=seq(50, 100, by=5))
 
-#calculate 99% KDE for Red Deer wolf pack
+#calculate 99% KDE for Bow Valley wolf pack
 bow.valleyUD <- kernelUD(bv, grid=30, extent=0.1, same4all=TRUE) # reference grid
 image(bow.valleyUD)
 ```
